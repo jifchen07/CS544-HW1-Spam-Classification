@@ -46,7 +46,7 @@ def main(path):
         u[word] = round(w[word] - u[word] / cnt, 8)
 
     # store parameters
-    dict_all = {'bias': beta, 'weights': u}
+    dict_all = {'bias': beta, 'weights': dict(u)}
 
     model_file = 'percmodel.txt'
     with open(model_file, 'w', encoding='latin1') as f:

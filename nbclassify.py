@@ -5,7 +5,6 @@ import ast
 def main(path):
     txt_files = glob.glob(path + '/**/*.txt', recursive=True)
     model_file = 'nbmodel.txt'
-    model = {}
 
     with open(model_file, 'r', encoding='latin1') as f:
         s = f.read()
@@ -16,6 +15,7 @@ def main(path):
     output_file = 'nboutput.txt'
     with open(output_file, 'w') as f_w:
         for file in txt_files:
+            # initialize with P(ham), P(spam)
             p_ham_data, p_spam_data = model['ham_freq'], model['spam_freq']
             with open(file, 'r', encoding='latin1') as f:
                 line = f.readline()     # save ram instead of using read()
@@ -26,11 +26,11 @@ def main(path):
                             p_spam_data += p_w_spam[word]
                     line = f.readline()
 
-                if p_ham_data == model['ham_freq']:     # means none of the words were seen before
-                    print('Undecided ' + file)
-                else:
-                    decision = 'spam ' if p_ham_data < p_spam_data else 'ham '
-                    print(decision + file, file=f_w)
+            if p_ham_data == model['ham_freq']:     # means none of the words were seen before
+                print('Undecided ' + file)
+            else:
+                prediction = 'spam ' if p_ham_data < p_spam_data else 'ham '
+                print(prediction + file, file=f_w)
 
     return
 
