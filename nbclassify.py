@@ -1,6 +1,8 @@
 import sys
+import os
 import glob
 import ast
+import time
 
 def main(path):
     txt_files = glob.glob(path + '/**/*.txt', recursive=True)
@@ -30,7 +32,7 @@ def main(path):
                 print('Undecided ' + file)
             else:
                 prediction = 'spam ' if p_ham_data < p_spam_data else 'ham '
-                print(prediction + file, file=f_w)
+                print(prediction + os.path.abspath(file), file=f_w)
 
     return
 
@@ -38,4 +40,6 @@ if __name__ == '__main__':
     dev_path = './dev'
     if len(sys.argv) > 1:
         dev_path = sys.argv[1]
+    start_time = time.time()
     main(path=dev_path)
+    print("--- %s seconds ---" % (time.time() - start_time))

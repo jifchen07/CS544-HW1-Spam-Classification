@@ -1,4 +1,5 @@
 import sys
+import time
 
 def safe_divide(x, y):
     return x / y if y else 0
@@ -39,4 +40,6 @@ if __name__ == '__main__':
     output_path = 'percoutput.txt'
     if len(sys.argv) > 1:
         output_path = sys.argv[1]
+    start_time = time.time()
     main(path=output_path)
+    print("--- %s seconds ---" % (time.time() - start_time))

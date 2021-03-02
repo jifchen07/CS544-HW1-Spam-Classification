@@ -2,6 +2,7 @@ import sys
 import glob
 import collections
 import random
+import time
 
 def main(path):
     txt_files = glob.glob(path + '/**/*.txt', recursive=True)
@@ -24,6 +25,18 @@ def main(path):
             cache = []
             with open(file, 'r', encoding='latin1') as f:
                 # calculate y
+                # words = f.read().replace('\n', ' ').split()
+                # word_counts = collections.Counter(words)
+                # for word in word_counts:
+                #     y += w[word] * word_counts[word]
+
+                # if y * y_t <= 0:
+                #     b += y_t
+                #     beta += y_t * cnt
+                #     for word in word_counts:
+                #         w[word] += y_t * word_counts[word]
+                #         u[word] += y_t * word_counts[word] * cnt
+
                 line = f.readline()
                 while line:
                     for word in line.split():
@@ -58,4 +71,6 @@ if __name__ == '__main__':
     src_path = './train'
     if len(sys.argv) > 1:
         src_path = sys.argv[1]
+    start_time = time.time()
     main(path=src_path)
+    print("--- %s seconds ---" % (time.time() - start_time))

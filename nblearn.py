@@ -2,6 +2,7 @@ import sys
 import glob
 from math import log10 as log
 from collections import Counter
+import time
 
 
 def main(path):
@@ -55,4 +56,6 @@ if __name__ == '__main__':
     src_path = './train'
     if len(sys.argv) > 1:
         src_path = sys.argv[1]
+    start_time = time.time()
     main(path=src_path)
+    print("--- %s seconds ---" % (time.time() - start_time))
